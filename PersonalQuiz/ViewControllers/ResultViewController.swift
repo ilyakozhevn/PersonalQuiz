@@ -12,7 +12,7 @@ class ResultViewController: UIViewController {
     @IBOutlet var animalLabel: UILabel!
     @IBOutlet var animalDefinitionLabel: UILabel!
     
-    var answersChosen: [Answer] = []
+    var answersChosen: [Answer]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,24 +22,19 @@ class ResultViewController: UIViewController {
         showResult()
     }
     
-    @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
+    @IBAction func doneButtonPressed(_ sender: Any?) {
         navigationController?.dismiss(animated: true)
     }
     
     private func showResult() {
-        if answersChosen.first == nil {
-            animalLabel.text = "Ошибка"
-            animalDefinitionLabel.text = "Не получены ответы на вопросы. Пожалуйста, обратитесь к разработчику приложения для исправления работы приложения."
-        } else {
-            let animal = getMostChosenAnimal()
-            
-            animalLabel.text = "Вы - \(animal.rawValue)"
-            animalDefinitionLabel.text = animal.definition
-        }
+        guard let animal = getMostChosenAnimal() else { return }
+        
+        animalLabel.text = "Вы - \(animal.rawValue)"
+        animalDefinitionLabel.text = animal.definition
     }
     
-    private func getMostChosenAnimal() -> Animal {
-        var animalsCounter = [answersChosen.first!.animal: 0]
+    private func getMostChosenAnimal() -> Animal? {
+        var animalsCounter = [answersChosen.first?.animal: 0]
         
         for answer in answersChosen {
             if animalsCounter[answer.animal] == nil {
@@ -50,6 +45,7 @@ class ResultViewController: UIViewController {
         }
         
         let sortedAnimals = animalsCounter.sorted(by: { $0.value > $1.value } )
-        return sortedAnimals.first!.key
+        
+        return sortedAnimals.first?.key
     }
 }
