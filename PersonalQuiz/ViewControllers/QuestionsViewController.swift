@@ -134,7 +134,6 @@ extension QuestionsViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let resultVC = segue.destination as? ResultViewController {
-            resultVC.questions = questions
             resultVC.answersChosen = answersChosen
         }
     }
