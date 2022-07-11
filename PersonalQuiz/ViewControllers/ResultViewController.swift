@@ -44,7 +44,7 @@ class ResultViewController: UIViewController {
             }
         }
         
-        let sortedAnimals = animalsCounter.sorted(by: { $0.value > $1.value } )
+        let sortedAnimals = animalsCounter.sorted { $0.value > $1.value }
         
         return sortedAnimals.first?.key
     }
