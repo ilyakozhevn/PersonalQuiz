@@ -37,12 +37,8 @@ class ResultViewController: UIViewController {
         var animalsCounter = [answersChosen.first?.animal: 0]
         
         for answer in answersChosen {
-            if animalsCounter[answer.animal] == nil {
-                animalsCounter[answer.animal] = 1
-            } else {
-                animalsCounter[answer.animal]! += 1
+            animalsCounter[answer.animal, default: 0] += 1
             }
-        }
         
         let sortedAnimals = animalsCounter.sorted { $0.value > $1.value }
         
